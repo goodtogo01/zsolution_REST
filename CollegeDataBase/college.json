@@ -1,0 +1,53 @@
+{
+  "Departments": {
+    "Group1": "Teachers",
+    "Group2": "HR",
+    "Group3": "Maintainance",
+    "Group4": "Students",
+    "Group5": "GovtBody"
+  },
+  "Faculty": [
+    {
+      "departmentsGroup": "Group:3",
+      "firstName": "Dula",
+      "lastName": "Stiedemann",
+      "id": "63",
+      "email": "InesStiedemann@mailinator.com",
+      "salary": "12012",
+      "phoneNumber": {
+        "homePhone": "9402224837",
+        "cellPhone": "7182018616"
+      }
+    },
+    {
+      "departmentsGroup": "Group:3",
+      "firstName": "Lamar",
+      "lastName": "Wisozk",
+      "id": 51,
+      "email": "LamarWisozk@zsolution.com",
+      "salary": 2580,
+      "phoneNumber": {
+        "homePhone": "(901) 907-4364",
+        "cellPhone": "(212) 417-5689"
+      }
+    }
+  ],
+  "Students": [
+    {
+      "departmentsGroup": "Group:4",
+      "id": 4212,
+      "firstName": "Vesta",
+      "lastName": "Blanda",
+      "Grade": "5th",
+      "email": "VestaBlanda@mailinator.com"
+    },
+    {
+      "departmentsGroup": "Group:4",
+      "id": 3223,
+      "firstName": "Johnathan",
+      "lastName": "Zboncak",
+      "Grade": "3rd",
+      "email": "JohnathanZboncak@mailinator.com"
+    }
+  ]
+}

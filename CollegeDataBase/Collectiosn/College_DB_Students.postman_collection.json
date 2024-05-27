@@ -1,0 +1,599 @@
+{
+	"info": {
+		"_postman_id": "5d2912e9-2e6d-4fdc-ab9d-4da7eff6f844",
+		"name": "College_DB_Students",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13559842"
+	},
+	"item": [
+		{
+			"name": "Students",
+			"item": [
+				{
+					"name": "CD002_Create_New_Student",
+					"item": [
+						{
+							"name": "TS001_Add_New_Student",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"postman.setEnvironmentVariable(\"fName\", pm.variables.replaceIn('{{$randomFirstName}}'));\r",
+											"postman.setEnvironmentVariable(\"lName\", pm.variables.replaceIn('{{$randomLastName}}'));\r",
+											"\r",
+											"\r",
+											"\r",
+											"//Email format\r",
+											"email_formatted = pm.environment.get(\"fName\") + pm.environment.get(\"lName\") + '@mailinator.com';\r",
+											"//Set Email in the Environment\r",
+											"postman.setEnvironmentVariable(\"email\", email_formatted);\r",
+											"\r",
+											"//Randome zip code\r",
+											"\r",
+											"function generateRandomint(n) {\r",
+											"    let randomNum = '';\r",
+											"    let characters2 = '6789';\r",
+											"\r",
+											"    for (let i = 0; i <= n; i++) {\r",
+											"        randomNum += characters2.charAt(Math.floor(Math.random() * characters2.length)+\"th\");\r",
+											"    }\r",
+											"    return randomNum;\r",
+											"}\r",
+											"var gread = generateRandomint(1);\r",
+											"pm.environment.set(\"gread\", gread+\"th\")\r",
+											"console.log(gread);\r",
+											"\r",
+											"function generateRandomint(n) {\r",
+											"    let randomNum = '';\r",
+											"    let characters2 = '1234';\r",
+											"\r",
+											"    for (let i = 0; i < n; i++) {\r",
+											"        randomNum += characters2.charAt(Math.floor(Math.random() * characters2.length));\r",
+											"    }\r",
+											"    return randomNum;\r",
+											"}\r",
+											"var id = generateRandomint(4);\r",
+											"pm.environment.set(\"id\", id)\r",
+											"console.log(id);\r",
+											"\r",
+											"\r",
+											"function generateStudentGrade() {   // Generate a random number between 1 and 12   \r",
+											"var grade = Math.floor(Math.random() * 12) + 1;    // Determine the suffix based on the grade   \r",
+											"var suffix;   \r",
+											"if (grade === 1) {     \r",
+											"suffix = \"st\";   \r",
+											"} else if (grade === 2) {     \r",
+											"suffix = \"nd\";   \r",
+											"} else if (grade === 3) {     \r",
+											"suffix = \"rd\";   } else {     \r",
+											"suffix = \"th\";   \r",
+											"}    // Return the generated grade with suffix   \r",
+											"return grade + suffix; }  // Example usage \r",
+											"var studentGrade = generateStudentGrade(); \r",
+											"console.log(\"Student Grade: \" + studentGrade); \r",
+											"pm.environment.set(\"gread\", studentGrade)\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"departmentsGroup\":\"Group:4\",\r\n    \"id\":{{id}},\r\n    \"firstName\": \"{{fName}}\",\r\n    \"lastName\": \"{{lName}}\",\r\n    \"Grade\": \"{{gread}}\",\r\n    \"email\": \"{{email}}\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/Students",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"Students"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "TS002_Validate_New_Student_Details",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Response status code is 200', function () {",
+											"    pm.response.to.have.status(200);",
+											"})",
+											"",
+											"pm.test('Response has the required fields, departmentsGroup is a non-empty string, and email is in a valid format', function () {",
+											"    const responseData = pm.response.json();",
+											"    pm.expect(responseData).to.be.an('array');",
+											"    responseData.forEach(function (student) {",
+											"        pm.expect(student).to.have.property('id');",
+											"        pm.expect(student).to.have.property('firstName');",
+											"        pm.expect(student).to.have.property('lastName');",
+											"        pm.expect(student).to.have.property('Grade');",
+											"        pm.expect(student).to.have.property('email');",
+											"        pm.expect(student.departmentsGroup).to.be.a('string').and.to.have.lengthOf.at.least(1, 'Value should not be empty');",
+											"        pm.expect(student.email).to.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/);",
+											"    });",
+											"})",
+											"",
+											"pm.test('Content-Type header is application/json', function () {",
+											"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+											"})",
+											"",
+											"pm.test('Each student\\'s id is a non-negative integer', function () {",
+											"    const responseData = pm.response.json();",
+											"    pm.expect(responseData).to.be.an('array');",
+											"    responseData.forEach(function (student) {",
+											"        pm.expect(student.id).to.be.a('number').and.to.satisfy(id => id >= 0, 'Id should be a non-negative integer');",
+											"    });",
+											"})",
+											"",
+											"pm.test('First name and last name must be non-empty strings', function () {",
+											"    const responseData = pm.response.json();",
+											"    responseData.forEach(student => {",
+											"        pm.expect(student.firstName).to.be.a('string').and.to.have.lengthOf.at.least(1, 'First name should not be empty');",
+											"        pm.expect(student.lastName).to.be.a('string').and.to.have.lengthOf.at.least(1, 'Last name should not be empty');",
+											"    });",
+											"})",
+											"",
+											"pm.test('DepartmentsGroup should be a non-empty string or null', function () {",
+											"    const responseData = pm.response.json();",
+											"    responseData.forEach(function (student) {",
+											"        pm.expect(student.departmentsGroup).to.satisfy(function (value) {",
+											"            return typeof value === 'string' && value.length > 0 || value === null;",
+											"        }, 'DepartmentsGroup should be a non-empty string or null');",
+											"    });",
+											"})",
+											"",
+											"pm.test('Each student id must be unique', function () {",
+											"    const responseData = pm.response.json();",
+											"    pm.expect(responseData).to.be.an('array');",
+											"    const idSet = new Set();",
+											"    responseData.forEach(function (student) {",
+											"        pm.expect(idSet.has(student.id)).to.be.false;",
+											"        idSet.add(student.id);",
+											"    });",
+											"})",
+											"",
+											"pm.test('Each student\\'s email is unique and not repeated', function () {",
+											"    const responseData = pm.response.json();",
+											"    pm.expect(responseData).to.be.an('array');",
+											"    const emailSet = new Set();",
+											"    responseData.forEach(student => {",
+											"        pm.expect(student.email).to.be.a('string');",
+											"        pm.expect(emailSet.has(student.email)).to.be.false;",
+											"        emailSet.add(student.email);",
+											"    });",
+											"})",
+											"",
+											"",
+											"pm.test(\"FirstName and LastName combination is unique for each student\", function () {",
+											"    const responseData = pm.response.json();",
+											"    ",
+											"    pm.expect(responseData).to.be.an('array');",
+											"    const fullNameSet = new Set();",
+											"    responseData.forEach(student => {",
+											"        const fullName = student.firstName + student.lastName;",
+											"        pm.expect(fullNameSet.has(fullName)).to.be.false;",
+											"        fullNameSet.add(fullName);",
+											"    });",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/Students?id={{id}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"Students"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CD003_Delete_Student",
+					"item": [
+						{
+							"name": "TS001_Get_Student_By_ID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"console.log(pm.environment.get(\"id\"))"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/Students?id={{id}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"Students"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "TS002_Delete_Student_By_ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											" \r",
+											"pm.test(\"Id Is Deleted, Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/Students/{{id}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"Students",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "TS003_Validate_Deleted_Record_By_ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"// fatch Student id from Environment\r",
+											"var oldId = console.log(pm.environment.get(\"id\"))\r",
+											"pm.test(\"The Particuler Student record is deleted. Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											" "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/Students/{{id}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"Students",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CD001_Get_All_Students",
+					"item": [
+						{
+							"name": "TS001_Get_All_Students",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response status code is 200\", function () {",
+											"  pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response is an array with at least one element\", function () {",
+											"    const responseData = pm.response.json();",
+											"    ",
+											"    pm.expect(responseData).to.be.an('array');",
+											"    pm.expect(responseData).to.have.lengthOf.at.least(1);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Email is in a valid format\", function () {",
+											"  const responseData = pm.response.json();",
+											"  ",
+											"  pm.expect(responseData).to.be.an('array').that.is.not.empty;",
+											"  ",
+											"  responseData.forEach(function(student) {",
+											"    pm.expect(student.email).to.exist.and.to.match(/^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$/);",
+											"  });",
+											"});",
+											"",
+											"",
+											"pm.test(\"Verify that the 'departmentsGroup' field is not empty for each student object\", function () {",
+											"    const responseData = pm.response.json();",
+											"    ",
+											"    responseData.forEach(function(student) {",
+											"        pm.expect(student.departmentsGroup).to.exist.and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+											"    });",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/Students",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"Students"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CD004_Updates_Student",
+					"item": [
+						{
+							"name": "TS001_Student_Record_By_Id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const shouldBeSkipped = true;",
+											"// pm.test(\"Response status code is 200\", function () {",
+											"//   pm.response.to.have.status(200);",
+											"// });",
+											"",
+											"",
+											"// pm.test(\"Response is an array with at least one element\", function () {",
+											"//     const responseData = pm.response.json();",
+											"    ",
+											"//     pm.expect(responseData).to.be.an('array');",
+											"//     pm.expect(responseData).to.have.lengthOf.at.least(1);",
+											"// });",
+											"",
+											"",
+											"// pm.test(\"Email is in a valid format\", function () {",
+											"//   const responseData = pm.response.json();",
+											"  ",
+											"//   pm.expect(responseData).to.be.an('array').that.is.not.empty;",
+											"  ",
+											"//   responseData.forEach(function(student) {",
+											"//     pm.expect(student.email).to.exist.and.to.match(/^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$/);",
+											"//   });",
+											"// });",
+											"",
+											"",
+											"// pm.test(\"Verify that the 'departmentsGroup' field is not empty for each student object\", function () {",
+											"//     const responseData = pm.response.json();",
+											"    ",
+											"//     responseData.forEach(function(student) {",
+											"//         pm.expect(student.departmentsGroup).to.exist.and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+											"//     });",
+											"// });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/Students?id={{id}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"Students"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "TS002_Update_Student_firestNmae_Email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"console.error"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\r\n        \"firstName\": \"Mola\",\r\n        \"email\": \"MolaAnkunding@mailinator.com\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/Students?id={{id}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"Students"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "TS003_Get_Updated_Records",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const shouldBeSkipped = true;",
+											"",
+											"// pm.test(\"Response status code is 200\", function () {",
+											"//   pm.response.to.have.status(200);",
+											"// });",
+											"",
+											"",
+											"// pm.test(\"Response is an array with at least one element\", function () {",
+											"//     const responseData = pm.response.json();",
+											"    ",
+											"//     pm.expect(responseData).to.be.an('array');",
+											"//     pm.expect(responseData).to.have.lengthOf.at.least(1);",
+											"// });",
+											"",
+											"",
+											"// pm.test(\"Email is in a valid format\", function () {",
+											"//   const responseData = pm.response.json();",
+											"  ",
+											"//   pm.expect(responseData).to.be.an('array').that.is.not.empty;",
+											"  ",
+											"//   responseData.forEach(function(student) {",
+											"//     pm.expect(student.email).to.exist.and.to.match(/^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$/);",
+											"//   });",
+											"// });",
+											"",
+											"",
+											"// pm.test(\"Verify that the 'departmentsGroup' field is not empty for each student object\", function () {",
+											"//     const responseData = pm.response.json();",
+											"    ",
+											"//     responseData.forEach(function(student) {",
+											"//         pm.expect(student.departmentsGroup).to.exist.and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+											"//     });",
+											"// });"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/Students?id={{id}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"Students"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{{id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
