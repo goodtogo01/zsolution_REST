@@ -21,6 +21,7 @@ public class Students {
 	static Response response;
 	String endPoints = "http://localhost:3000/Students/";
 	String ep_WithId = "http://localhost:3000/Students?id=325";
+	String ep_WithId2 = "http://localhost:3000/Students?id=325";
 
 	@Test
 	public void getAllStudents() {
