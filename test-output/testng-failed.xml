@@ -5,7 +5,7 @@
     <classes>
       <class name="com.Pages.Students">
         <methods>
-          <include name="addStudent"/>
+          <include name="delectRecord_DELETE"/>
         </methods>
       </class> <!-- com.Pages.Students -->
     </classes>

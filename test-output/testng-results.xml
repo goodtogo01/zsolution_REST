@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
+<testng-results ignored="4" total="5" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-05-26T15:44:31 EDT" name="Default suite" finished-at="2024-05-26T15:44:33 EDT" duration-ms="1043">
+  <suite started-at="2024-05-27T11:48:23 EDT" name="Default suite" finished-at="2024-05-27T11:48:24 EDT" duration-ms="1584">
     <groups>
     </groups>
-    <test started-at="2024-05-26T15:44:31 EDT" name="Default test" finished-at="2024-05-26T15:44:33 EDT" duration-ms="1043">
+    <test started-at="2024-05-27T11:48:23 EDT" name="Default test" finished-at="2024-05-27T11:48:24 EDT" duration-ms="1584">
       <class name="com.Pages.Students">
-        <test-method signature="addStudent()[pri:0, instance:com.Pages.Students@778d1062]" started-at="2024-05-26T15:44:31 EDT" name="addStudent" finished-at="2024-05-26T15:44:32 EDT" duration-ms="987" status="PASS">
+        <test-method signature="delectRecord_DELETE()[pri:0, instance:com.Pages.Students@483b7dc4]" started-at="2024-05-27T11:48:23 EDT" name="delectRecord_DELETE" finished-at="2024-05-27T11:48:24 EDT" duration-ms="1536" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- addStudent -->
-        <test-method signature="getAllStudents()[pri:0, instance:com.Pages.Students@778d1062]" started-at="2024-05-26T15:44:32 EDT" name="getAllStudents" finished-at="2024-05-26T15:44:33 EDT" duration-ms="29" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- getAllStudents -->
+        </test-method> <!-- delectRecord_DELETE -->
       </class> <!-- com.Pages.Students -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->

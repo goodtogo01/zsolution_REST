@@ -15,8 +15,8 @@
  
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>18</maven.compiler.source>
-		<maven.compiler.target>18</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<restVersion>5.0.1</restVersion>
 		<testngVersion>7.7.1</testngVersion>
 		<extent>5.1.0</extent>

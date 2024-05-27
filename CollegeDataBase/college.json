@@ -35,19 +35,50 @@
   "Students": [
     {
       "departmentsGroup": "Group:4",
-      "id": 4212,
-      "firstName": "Vesta",
-      "lastName": "Blanda",
-      "Grade": "5th",
-      "email": "VestaBlanda@mailinator.com"
-    },
-    {
-      "departmentsGroup": "Group:4",
       "id": 3223,
       "firstName": "Johnathan",
       "lastName": "Zboncak",
       "Grade": "3rd",
       "email": "JohnathanZboncak@mailinator.com"
+    },
+    {
+      "firstName": "Florence",
+      "lastName": "Macejkovic",
+      "departmentsGroup": "Group:4",
+      "id": 16,
+      "email": "FlorenceMacejkovic@zsolution.com"
+    },
+    {
+      "firstName": "Julian",
+      "lastName": "Nolan",
+      "departmentsGroup": "Group:4",
+      "id": 145,
+      "email": "JulianNolan@zsolution.com"
+    },
+    {
+      "firstName": "Nikolas",
+      "lastName": "Hand",
+      "departmentsGroup": "Group:4",
+      "id": 129,
+      "email": "NikolasHand@zsolution.com"
+    },
+    {
+      "empty": false,
+      "id": 4213
+    },
+    {
+      "firstName": "Adolf",
+      "lastName": "Rohan",
+      "departmentsGroup": "Group:4",
+      "id": 29,
+      "email": "AdolfRohan@zsolution.com"
+    },
+    {
+      "firstName": "Juston",
+      "lastName": "Gulgowski",
+      "departmentsGroup": "Group:4",
+      "id": 98,
+      "email": "JustonGulgowski@zsolution.com"
     }
   ]
 }
