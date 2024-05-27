@@ -5,7 +5,7 @@
     <classes>
       <class name="com.Pages.Students">
         <methods>
-          <include name="getAllStudents"/>
+          <include name="addStudent"/>
         </methods>
       </class> <!-- com.Pages.Students -->
     </classes>
